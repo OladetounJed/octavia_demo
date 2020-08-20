@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <app-header></app-header>
-    <div class="head">
+    <div v-bind:style="{backgroundImage: 'url(' + backgroundImage + ')'}" class="head">
       <section class="landing">
         <div class="landing__con">
           <h1
@@ -24,13 +24,17 @@
           <img src="../assets/images/More-info_image.png" class="about__img" />
         </div>
         <div class="about__child">
-          <h1 class="about__heading"> {{ imageParagraph.text }}</h1>
+          <h1 class="about__heading"> {{ imageText.text }}</h1>
           <p class="about__paragraph">
-           {{ imageText.text }}
+           
+           {{ imageParagraph.text }}
           </p>
         </div>
       </div>
     </section>
+    <!-- <section class="featured">
+      <h1 class="featured__heading">FEATURED COLLECTION</h1>
+    </section> -->
     <app-footer></app-footer>
   </div>
 </template>
@@ -38,7 +42,7 @@
 <script>
 import appHeader from "../components/Header";
 import appFooter from "../components/Footer";
-import db from "../firebase";
+import fb from "../firebase";
 export default {
   data() {
     return {
@@ -46,6 +50,7 @@ export default {
       paragraph: {},
       imageText: {},
       imageParagraph: {},
+      backgroundImage: ""
     };
   },
   components: {
@@ -54,10 +59,12 @@ export default {
   },
   mounted() {
     this.getData();
+    this.getFileUrl()
   },
   methods: {
     getData: function() {
       var that = this;
+      var db = fb.database()
 
       db.ref("header")
         .once("value")
@@ -83,7 +90,19 @@ export default {
           that.imageText = snapshot.val();
           console.log(that.imageText);
         });
+        
     },
+    getFileUrl() {
+     var that = this;
+var storage = fb.storage().ref("background");
+storage
+.getDownloadURL()
+.then(function(url) {
+  that.backgroundImage = url;
+  console.log(that.backgroundImage)
+})
+
+}
     
   },
 };
@@ -91,7 +110,5 @@ export default {
 <style lang="scss">
 $primary-black: #000;
 
-.head {
-  background-image: url("../assets/images/Landing.png");
-}
+
 </style>
