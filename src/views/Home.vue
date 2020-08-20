@@ -5,14 +5,12 @@
       <section class="landing">
         <div class="landing__con">
           <h1
-            v-bind:style="{ fontSize: header.fontSize + 'px' }"
             class="landing__heading"
           >
             {{ header.text }}
           </h1>
           <p
             class="landing__paragraph"
-            v-bind:style="{ fontSize: paragraph.fontSize + 'px' }"
           >
             {{ paragraph.text }}
           </p>
@@ -26,12 +24,9 @@
           <img src="../assets/images/More-info_image.png" class="about__img" />
         </div>
         <div class="about__child">
-          <h1 class="about__heading">Image with text</h1>
+          <h1 class="about__heading"> {{ imageParagraph.text }}</h1>
           <p class="about__paragraph">
-            This section should contain a flagship product that can express your
-            brand better and a short description about your brand and your
-            journey. The header of this section should be a “call to action”
-            text like Building Shoes With Passion.
+           {{ imageText.text }}
           </p>
         </div>
       </div>
@@ -49,6 +44,8 @@ export default {
     return {
       header: {},
       paragraph: {},
+      imageText: {},
+      imageParagraph: {},
     };
   },
   components: {
@@ -72,9 +69,22 @@ export default {
         .once("value")
         .then(function(snapshot) {
           that.paragraph = snapshot.val();
-          console.log(that.paragraph);
+  
+        });
+         db.ref("image_paragaph")
+        .once("value")
+        .then(function(snapshot) {
+          that.imageParagraph = snapshot.val();
+          console.log(that.imageParagraph);
+        });
+         db.ref("image_text")
+        .once("value")
+        .then(function(snapshot) {
+          that.imageText = snapshot.val();
+          console.log(that.imageText);
         });
     },
+    
   },
 };
 </script>

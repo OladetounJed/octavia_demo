@@ -334,6 +334,17 @@ body {
   -------*/
 
 @media (max-width: 700px) {
+  .header {
+    &__middle {
+      display: none;
+      
+    }
+    &__right {
+      img {
+        margin: 0 1em;
+      }
+    }
+  }
   .landing {
     padding: 0.5em 1em;
   }
@@ -352,8 +363,9 @@ body {
     }
   }
   .about {
-    &__header {
-      font-size: 2em;
+    &__heading {
+      text-align: center;
+      margin-top: 2em;
     }
     &__con {
       flex-direction: column;

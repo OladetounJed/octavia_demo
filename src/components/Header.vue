@@ -14,13 +14,10 @@
           <img
             src="../assets/images/search-icon.png"
             alt="Menu Icon"
-            class="header__menu"
           />
           <img
             src="../assets/images/shop-icon.png"
             alt="Menu Icon"
-            class="header__menu"
-
           />
         </div>
       </header>
@@ -30,7 +27,6 @@
 export default {
     data() {
     return {
-      jobs: [],
       navStyle: {}
     };
   },
